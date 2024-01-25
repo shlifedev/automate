@@ -1,13 +1,15 @@
-# 설치 확인
-if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
-    $userResponse = Read-Host "Chocolatey가 설치되어 있지 않습니다. 설치하시겠습니까? (Y/N)"
-    if ($userResponse -eq 'Y') {
-        # Chocolatey 설치
-        Set-ExecutionPolicy Bypass -Scope Process -Force
-        [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
-        Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+    # 설치 확인
+    if (-not (Get-Command choco -ErrorAction SilentlyContinue)) {
+        $userResponse = Read-Host "Chocolatey가 설치되어 있지 않습니다. 설치하시겠습니까? (Y/N)"
+        if ($userResponse -eq 'Y') {
+            # Chocolatey 설치
+            Set-ExecutionPolicy Bypass -Scope Process -Force
+            [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072
+            Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+        } else {
+            Write-Host "Chocolatey 설치를 취소했습니다."
+            exit
+        }
     } else {
-        Write-Host "Chocolatey 설치를 취소했습니다."
-        exit
+        Write-Host "Chocolatey가 이미 설치되어 있습니다."
     }
-}
